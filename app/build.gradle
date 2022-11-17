@@ -5,7 +5,33 @@ plugins {
     id 'kotlin-android-extensions'
     id 'com.google.ar.sceneform.plugin'
 }
+sceneform.asset(
+        'sampledata/models/Chair.obj',
+        'default',
+        'sampledata/models/Chair.sfa',
+        'src/main/res/raw/chair'
+)
 
+sceneform.asset(
+        'sampledata/models/Oven_01.obj',
+        'default',
+        'sampledata/models/Oven_01.sfa',
+        'src/main/res/raw/oven'
+)
+
+sceneform.asset(
+        'sampledata/models/Piano_01.obj',
+        'default',
+        'sampledata/models/Piano_01.sfa',
+        'src/main/res/raw/piano'
+)
+
+sceneform.asset(
+        'sampledata/models/Table_Large_Rectangular_01.obj',
+        'default',
+        'sampledata/models/Table_Large_Rectangular_01.sfa',
+        'src/main/res/raw/table'
+)
 android {
     compileSdk 32
 
@@ -56,7 +82,9 @@ dependencies {
     implementation 'com.google.ar.sceneform:core:1.17.1'
     implementation "com.google.ar.sceneform:animation:1.17.1"
 
-
+    // Obj - a simple Wavefront OBJ file loader
+    // https://github.com/javagl/Obj
+    implementation 'de.javagl:obj:0.2.1'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
