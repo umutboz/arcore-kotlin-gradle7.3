@@ -27,6 +27,13 @@ sceneform.asset(
 )
 
 sceneform.asset(
+        'sampledata/models/morgulblade_lp.obj',
+        'default',
+        'sampledata/models/morgulblade_lp.sfa',
+        'src/main/res/raw/morgulblade'
+)
+
+sceneform.asset(
         'sampledata/models/Table_Large_Rectangular_01.obj',
         'default',
         'sampledata/models/Table_Large_Rectangular_01.sfa',
@@ -85,6 +92,8 @@ dependencies {
     // Obj - a simple Wavefront OBJ file loader
     // https://github.com/javagl/Obj
     implementation 'de.javagl:obj:0.2.1'
+    implementation "org.jogamp.jogl:jogl-all-main:2.3.2"
+    implementation "org.jogamp.gluegen:gluegen-rt-main:2.3.2"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

@@ -1,0 +1,15 @@
+newmtl MorgulBlade
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd mb_specular.png
+Ni 1.00
+Ks 0.50 0.50 0.50
+map_Kd mb_roughness.png
+Ni 1.00
+Ks 0.50 0.50 0.50
+map_Kd mb_ao.tga.png
+Ni 1.00
+Ks 0.50 0.50 0.50
+map_Kd mb_albedo.png
