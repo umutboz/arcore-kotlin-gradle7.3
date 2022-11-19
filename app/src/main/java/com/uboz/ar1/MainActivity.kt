@@ -29,7 +29,7 @@ import com.google.ar.sceneform.ux.TransformableNode
 import com.uboz.ar1.databinding.ActivityMainBinding
 import com.uboz.ar1.models.Model
 import com.uboz.ar1.models.ModelAdapter
-import kotlinx.android.synthetic.main.fragment_second.*
+import kotlinx.android.synthetic.main.activity_main.*
 import java.util.concurrent.CompletableFuture
 
 private const val BOTTOM_SHEET_PEEK_HEIGHT = 50f
@@ -42,7 +42,6 @@ class MainActivity : AppCompatActivity() {
         Model(R.drawable.table, "Table", R.raw.table)
     )
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private lateinit var selectedModel: Model
 
@@ -60,12 +59,14 @@ class MainActivity : AppCompatActivity() {
     }
     private fun setupBottomSheet() {
         val bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
+        /*
         bottomSheetBehavior.peekHeight =
             TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
                 BOTTOM_SHEET_PEEK_HEIGHT,
                 resources.displayMetrics
             ).toInt()
+        */
         bottomSheetBehavior.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
