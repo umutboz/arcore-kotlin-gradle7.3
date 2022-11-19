@@ -7,8 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.uboz.ar1.databinding.FragmentSecondBinding
+import com.uboz.ar1.models.Model
+import com.uboz.ar1.models.ModelAdapter
 import kotlinx.android.synthetic.main.fragment_second.*
 
 /**
@@ -17,6 +20,13 @@ import kotlinx.android.synthetic.main.fragment_second.*
 private const val BOTTOM_SHEET_PEEK_HEIGHT = 50f
 class SecondFragment : Fragment() {
 
+    private val models = mutableListOf(
+        Model(R.drawable.chair, "Chair", R.raw.chair),
+        Model(R.drawable.oven, "Oven", R.raw.oven),
+        Model(R.drawable.piano, "Piano", R.raw.piano),
+        Model(R.drawable.table, "Table", R.raw.table)
+    )
+    lateinit var selectedModel: Model
     private var _binding: FragmentSecondBinding? = null
 
     // This property is only valid between onCreateView and
@@ -35,15 +45,14 @@ class SecondFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.buttonSecond.setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
 
         setupBottomSheet()
-
+        setupRecyclerView()
     }
-    fun setupBottomSheet() {
+    private fun setupBottomSheet() {
         val bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
         bottomSheetBehavior.peekHeight =
             TypedValue.applyDimension(
@@ -59,6 +68,18 @@ class SecondFragment : Fragment() {
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {}
         })
+    }
+    private fun setupRecyclerView() {
+        rvModels.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+        rvModels.adapter = ModelAdapter(models)
+        val adapter = rvModels.adapter as ModelAdapter
+        // Selected Model Observe and set the selected model
+        adapter.selectedModel.observe(viewLifecycleOwner,
+            androidx.lifecycle.Observer { model ->
+                selectedModel = model
+                tvModel.text = "Models (${model.title})"
+            })
+
     }
 
     override fun onDestroyView() {
