@@ -59,14 +59,14 @@ class MainActivity : AppCompatActivity() {
     }
     private fun setupBottomSheet() {
         val bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
-        /*
+
         bottomSheetBehavior.peekHeight =
             TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
                 BOTTOM_SHEET_PEEK_HEIGHT,
                 resources.displayMetrics
             ).toInt()
-        */
+
         bottomSheetBehavior.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
@@ -92,9 +92,16 @@ class MainActivity : AppCompatActivity() {
     // using models ------------------------>
 
     private fun setupDoubleTapArPlaneListener() {
+
+
         arFragment.setOnTapArPlaneListener { hitResult, _, _ ->
-            loadModel { modelRenderable, viewRenderable ->
-                addNodeToScene(hitResult.createAnchor(), modelRenderable, viewRenderable)
+            // check selected model is initialized
+            if (!this@MainActivity::selectedModel.isInitialized) {
+                Toast.makeText(this@MainActivity, "Please select a model", Toast.LENGTH_SHORT).show()
+            }else {
+                loadModel { modelRenderable, viewRenderable ->
+                    addNodeToScene(hitResult.createAnchor(), modelRenderable, viewRenderable)
+                }
             }
         }
     }
