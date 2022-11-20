@@ -21,6 +21,7 @@ import com.google.ar.core.Anchor
 import com.google.ar.sceneform.AnchorNode
 import com.google.ar.sceneform.Node
 import com.google.ar.sceneform.collision.Box
+import com.google.ar.sceneform.math.Quaternion
 import com.google.ar.sceneform.math.Vector3
 import com.google.ar.sceneform.rendering.ModelRenderable
 import com.google.ar.sceneform.rendering.ViewRenderable
@@ -45,6 +46,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var selectedModel: Model
+    private val viewNodes = mutableListOf<Node>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +58,14 @@ class MainActivity : AppCompatActivity() {
         setupBottomSheet()
         setupRecyclerView()
         setupDoubleTapArPlaneListener()
+
+
+        // Set an update listener on the arSceneView
+        getCurrentScene().addOnUpdateListener {
+            rotateViewNodesTowardsUser()
+        }
+
+
 
     }
     private fun setupBottomSheet() {
@@ -176,6 +186,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
+    //
+    private fun rotateViewNodesTowardsUser() {
+        for (node in viewNodes) {
+            node.renderable?.let {
+                val camPos = getCurrentScene().camera.worldPosition
+                val viewNodePos = node.worldPosition
+                val dir = Vector3.subtract(camPos, viewNodePos)
+                node.worldRotation = Quaternion.lookRotation(dir, Vector3.up())
+            }
+        }
+    }
 
 }
