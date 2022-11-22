@@ -3,14 +3,7 @@ package com.uboz.ar1
 import android.graphics.Color
 import android.os.Bundle
 import android.util.TypedValue
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
@@ -47,6 +40,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var selectedModel: Model
     private val viewNodes = mutableListOf<Node>()
+    private lateinit var photoSaver: PhotoSaver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,14 +53,19 @@ class MainActivity : AppCompatActivity() {
         setupRecyclerView()
         setupDoubleTapArPlaneListener()
 
-
+        // photo capture
+        setupFab()
+        photoSaver = PhotoSaver(this)
         // Set an update listener on the arSceneView
         getCurrentScene().addOnUpdateListener {
             rotateViewNodesTowardsUser()
         }
+    }
 
-
-
+    private fun setupFab() {
+        fab.setOnClickListener {
+            photoSaver.takePhoto(arFragment.arSceneView)
+        }
     }
     private fun setupBottomSheet() {
         val bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
