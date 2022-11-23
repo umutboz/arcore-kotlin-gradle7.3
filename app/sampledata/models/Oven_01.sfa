@@ -62,7 +62,7 @@
     file: 'sampledata/models/Oven_01.obj',
     name: 'Oven_01',
     recenter: 'root',
-    scale: 0.123515,
+    scale: 0.09,
   },
   version: '0.54:2',
 }
